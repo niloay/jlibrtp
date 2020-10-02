@@ -128,6 +128,8 @@ public class RTPReceiverThread extends Thread {
 				part = new Participant((InetSocketAddress) packet.getSocketAddress(), nullSocket, pkt.getSsrc());
 				part.unexpected = true;
 				rtpSession.partDb.addParticipant(1,part);
+				// reload Participant fixed pktbuffer is empty twice (line:139)
+				part = rtpSession.partDb.getParticipant(pktSsrc);
 			}
 
 			// Do checks on whether the datagram came from the expected source for that SSRC.
